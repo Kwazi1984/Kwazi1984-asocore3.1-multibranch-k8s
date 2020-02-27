@@ -1,0 +1,94 @@
+pipeline {
+    agent any
+    environment{
+        DOCKER_TAG = getDockerTag()
+        BRANCH_NAME = getBranchName()
+        KUBECONFIG = "/home/ubuntu/.kube/config"
+    }
+
+    stages{
+
+        stage('Unit tests'){
+            steps{
+                sh "dotnet test aspcore-k8s.Tests/aspcore-k8s.Tests.csproj"
+            }  
+        }
+
+        stage('Build Docker Image on test'){
+            when { 
+                expression { "${BRANCH_NAME}" == "test" }
+            }
+            steps{
+                sh "docker build ./aspcore-k8s -t kwazi1984/aspcore-multibranch-k8s:test-${DOCKER_TAG} "
+            }
+        }
+
+        stage('Build Docker Image on prod'){
+            when { 
+                expression { "${BRANCH_NAME}" == "master" }
+            }
+            steps{
+                sh "docker build ./aspcore-k8s -t kwazi1984/aspcore-multibranch-k8s:${DOCKER_TAG} "
+            }
+        }
+
+        stage('DockerHub Push prod image'){
+            when { 
+                expression { "${BRANCH_NAME}" == "master" }
+            }
+            steps{
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+                    sh "docker login -u kwazi1984 -p ${dockerHubPwd}"
+                    sh "docker push kwazi1984/aspcore-multibranch-k8s:${DOCKER_TAG}"
+                }
+            }
+        }
+        
+        stage('Deploy to Kubernetes on test'){
+            when { 
+                expression { "${BRANCH_NAME}" == "test" }
+            }
+            steps{               
+                sh "chmod +x aspcore-k8s/k8s-test/changeTag.sh"
+                sh "./aspcore-k8s/k8s-test/changeTag.sh test-${DOCKER_TAG}"
+
+                script{
+                        try{
+                            sh "kubectl apply -f ./aspcore-k8s/k8s-test/. -n aspcore-k8s-test"
+                        }catch(error){
+                            sh "kubectl create -f ./aspcore-k8s/k8s-test/. -n aspcore-k8s-test"
+                        }
+                    }     
+            }
+        }
+
+        stage('Deploy to Kubernetes on prod'){
+            when { 
+                expression { "${BRANCH_NAME}" == "master" }
+            }            
+            steps{               
+                sh "chmod +x aspcore-k8s/k8s-prod/changeTag.sh"
+                sh "./aspcore-k8s/k8s-prod/changeTag.sh ${DOCKER_TAG}"
+
+                script{
+                        try{
+                            sh "kubectl apply -f ./aspcore-k8s/k8s-prod/. -n aspcore-k8s-prod"
+                        }catch(error){
+                            sh "kubectl create -f ./aspcore-k8s/k8s-prod/. -n aspcore-k8s-prod"
+                        }
+                    }     
+            }
+        }
+
+    }
+}
+
+def getDockerTag(){
+    def tag  = sh script: 'git rev-parse HEAD', returnStdout: true
+    return tag
+}
+
+def getBranchName(){
+    def branch = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+    return branch
+}

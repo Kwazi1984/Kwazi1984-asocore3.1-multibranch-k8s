@@ -1,0 +1,135 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/ubuntu/Workspace/kubernetes/aspcore-k8s-cicd-nunit-multibranch-netcore3.0/aspcore-k8s.Tests/aspcore-k8s.Tests.csproj": {}
+  },
+  "projects": {
+    "/home/ubuntu/Workspace/kubernetes/aspcore-k8s-cicd-nunit-multibranch-netcore3.0/aspcore-k8s.Tests/aspcore-k8s.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/ubuntu/Workspace/kubernetes/aspcore-k8s-cicd-nunit-multibranch-netcore3.0/aspcore-k8s.Tests/aspcore-k8s.Tests.csproj",
+        "projectName": "aspcore-k8s.Tests",
+        "projectPath": "/home/ubuntu/Workspace/kubernetes/aspcore-k8s-cicd-nunit-multibranch-netcore3.0/aspcore-k8s.Tests/aspcore-k8s.Tests.csproj",
+        "packagesPath": "/home/ubuntu/.nuget/packages/",
+        "outputPath": "/home/ubuntu/Workspace/kubernetes/aspcore-k8s-cicd-nunit-multibranch-netcore3.0/aspcore-k8s.Tests/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/home/ubuntu/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "/home/ubuntu/Workspace/kubernetes/aspcore-k8s-cicd-nunit-multibranch-netcore3.0/aspcore-k8s/aspnetcoreapp.csproj": {
+                "projectPath": "/home/ubuntu/Workspace/kubernetes/aspcore-k8s-cicd-nunit-multibranch-netcore3.0/aspcore-k8s/aspnetcoreapp.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.4.0, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[3.15.1, )"
+            },
+            "nunit": {
+              "target": "Package",
+              "version": "[3.12.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.101/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/ubuntu/Workspace/kubernetes/aspcore-k8s-cicd-nunit-multibranch-netcore3.0/aspcore-k8s/aspnetcoreapp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/ubuntu/Workspace/kubernetes/aspcore-k8s-cicd-nunit-multibranch-netcore3.0/aspcore-k8s/aspnetcoreapp.csproj",
+        "projectName": "aspnetcoreapp",
+        "projectPath": "/home/ubuntu/Workspace/kubernetes/aspcore-k8s-cicd-nunit-multibranch-netcore3.0/aspcore-k8s/aspnetcoreapp.csproj",
+        "packagesPath": "/home/ubuntu/.nuget/packages/",
+        "outputPath": "/home/ubuntu/Workspace/kubernetes/aspcore-k8s-cicd-nunit-multibranch-netcore3.0/aspcore-k8s/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/home/ubuntu/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.101/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
