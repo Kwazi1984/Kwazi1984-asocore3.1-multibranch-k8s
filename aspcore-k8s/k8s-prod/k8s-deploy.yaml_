@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aspcore-multibranch-k8s
+  labels:
+    app: aspcore-multibranch-k8s
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aspcore-multibranch-k8s
+  template:
+    metadata:
+      labels:
+        app: aspcore-multibranch-k8s
+    spec:
+      containers:
+      - name: aspcore-multibranch-k8s
+        image: kwazi1984/aspcore3.1-multibranch-k8s:tagVersion
+        ports:
+        - containerPort: 80
+          name: web
+
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 3
+        

@@ -19,7 +19,7 @@ pipeline {
                 expression { "${BRANCH_NAME}" == "test" }
             }
             steps{
-                sh "docker build ./aspcore-k8s -t kwazi1984/aspcore-multibranch-k8s:test-${DOCKER_TAG} "
+                sh "docker build ./aspcore-k8s -t kwazi1984/aspcore3.1-multibranch-k8s:test-${DOCKER_TAG} "
             }
         }
 
@@ -28,7 +28,7 @@ pipeline {
                 expression { "${BRANCH_NAME}" == "master" }
             }
             steps{
-                sh "docker build ./aspcore-k8s -t kwazi1984/aspcore-multibranch-k8s:${DOCKER_TAG} "
+                sh "docker build ./aspcore-k8s -t kwazi1984/aspcore3.1-multibranch-k8s:${DOCKER_TAG} "
             }
         }
 
@@ -39,7 +39,7 @@ pipeline {
             steps{
                 withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
                     sh "docker login -u kwazi1984 -p ${dockerHubPwd}"
-                    sh "docker push kwazi1984/aspcore-multibranch-k8s:${DOCKER_TAG}"
+                    sh "docker push kwazi1984/aspcore3.1-multibranch-k8s:${DOCKER_TAG}"
                 }
             }
         }
