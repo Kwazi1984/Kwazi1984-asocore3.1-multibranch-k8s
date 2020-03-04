@@ -3,6 +3,7 @@ pipeline {
     environment{
         DOCKER_TAG = getDockerTag()
         BRANCH_NAME = getBranchName()
+        DATE_TIME = getDateTimeTag()
         KUBECONFIG = "/home/ubuntu/.kube/config"
     }
 
@@ -28,7 +29,7 @@ pipeline {
                 expression { "${BRANCH_NAME}" == "master" }
             }
             steps{
-                sh "docker build ./aspcore-k8s -t kwazi1984/aspcore3.1-multibranch-k8s:${DOCKER_TAG} "
+                sh "docker build ./aspcore-k8s -t kwazi1984/aspcore3.1-multibranch-k8s:master-${DATE_TIME} "
             }
         }
 
@@ -86,6 +87,11 @@ pipeline {
 def getDockerTag(){
     def tag  = sh script: 'git rev-parse HEAD', returnStdout: true
     return tag
+}
+
+def getDateTimeTag(){
+    def tag = new Date().format​('yyyyMMddHH:mm:ss')
+    return tag;
 }
 
 def getBranchName(){
