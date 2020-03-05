@@ -90,7 +90,7 @@ def getDockerTag(){
 }
 
 def getDateTimeTag(){
-    def tag  = sh script: 'date +"%Y%m%dT%I%M%S"', returnStdout: true
+    def tag  = sh script: 'date +"%Y%m%dT%H%M%S"', returnStdout: true
     return tag
 }
 
