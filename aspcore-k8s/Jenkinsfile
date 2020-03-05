@@ -1,5 +1,3 @@
-import java.util.Date
-
 pipeline {
     agent any
     environment{
@@ -31,7 +29,7 @@ pipeline {
                 expression { "${BRANCH_NAME}" == "master" }
             }
             steps{
-                sh "docker build ./aspcore-k8s -t kwazi1984/aspcore3.1-multibranch-k8s:master-${DATE_TIME} "
+                sh "docker build ./aspcore-k8s -t kwazi1984/aspcore3.1-multibranch-k8s:master-${DOCKER_TAG} "
             }
         }
 
@@ -92,8 +90,8 @@ def getDockerTag(){
 }
 
 def getDateTimeTag(){
-    def tag = new Date().format​('yyyyMMddHH:mm:ss')
-    return tag;
+    def tag  = sh script: 'date +"%Y%m%d-%I%M%S"', returnStdout: true
+    return tag
 }
 
 def getBranchName(){
